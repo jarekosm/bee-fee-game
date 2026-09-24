@@ -35,8 +35,13 @@ export class Knight {
       animationSpeed: 0.1,
       loop: true,
       autoPlay: true,
+      anchor: { x: 0.5, y: 1 },
     });
     this.view.addChild(this.sprite);
+  }
+
+  public setWidth(width: number): void {
+    this.view.scale.set(width / this.sprite.texture.width);
   }
 
   public setMode(mode: TKnightMode): void {

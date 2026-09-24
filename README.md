@@ -10,3 +10,10 @@
 - Podłączenie projektu pod narzędzie typu `SonarQube`.
 - Skonfigurowanie i dodanie testów (nie mam doświadczenia w testowaniu tego typu biblioteki, ale mam doświadczenie w innego rodzaju testach [np. jednostkowych, które też by się tutaj przydały]).
 - W przypadku rozrastającego się projektu lepiej przemyślałbym strukturę aplikacji.
+
+# Rozwój projektu (gra)
+
+To są rzeczy, których nie zdążyłem ogarnąć lub stwierdziłem, że wymagają zbyt dużo czasu na ten etap.
+
+- Skalowanie elementów gry w stosunku do rozmiaru świata zapisanego w configu (teraz jest tylko skalowanie ekranu).
+- Rycerz w sprite ma wolną przestrzeń po bokach. To sprawia, że skalowanie i łapanie przedmiotów nie jest dokładne, bo może nie dotknąć jedzenie, ale jego sprite dotyka. Trzeba będzie obciąć padding.

@@ -8,6 +8,7 @@ const SPRITE_CONFIG = Object.freeze({
 
 export class Food {
   public readonly view = new Container();
+  private readonly sprite: Sprite;
 
   constructor() {
     const sheet = Assets.get<Texture>(CONFIG.assets.food.alias);
@@ -25,11 +26,14 @@ export class Food {
       frame: new Rectangle(x * frameWidth, y * frameHeight, frameWidth, frameHeight),
     });
 
-    const sprite = new Sprite({
+    this.sprite = new Sprite({
       texture: texture,
-      scale: 0.5,
     });
 
-    this.view.addChild(sprite);
+    this.view.addChild(this.sprite);
+  }
+
+  public setWidth(width: number): void {
+    this.view.scale.set(width / this.sprite.texture.width);
   }
 }

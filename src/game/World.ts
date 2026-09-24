@@ -1,4 +1,5 @@
 import { Application } from 'pixi.js';
+import { CONFIG } from '../config';
 import { Keyboard } from '../input';
 import { Food, Knight } from '../worldItems';
 import { preload, setup } from './setup';
@@ -20,9 +21,8 @@ export class World {
 
   private addKnight(): Knight {
     const knight = new Knight();
-    knight.view.position.set(this.app.screen.width / 2, this.app.screen.height / 2); // todo: ustawić prawidłową pozycję
-    knight.view.scale.set(5);
-    // todo: ustawić odpowiednią skalę
+    knight.setWidth(this.app.screen.width * CONFIG.world.knightWidth);
+    knight.view.position.set(this.app.screen.width / 2, this.app.screen.height);
     this.app.stage.addChild(knight.view);
 
     this.app.ticker.add(() => {
@@ -44,7 +44,7 @@ export class World {
 
   private addFood(): Food {
     const food = new Food();
-    food.view.scale.set(20);
+    food.setWidth(this.app.screen.width * CONFIG.world.foodWidth);
     this.app.stage.addChild(food.view);
 
     return food; // todo: czy tutaj jest potrzebny return?

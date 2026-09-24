@@ -4,7 +4,11 @@ import { CONFIG } from '../config';
 export async function setup(): Promise<Application> {
   const app = new Application();
 
-  await app.init({ background: CONFIG.world.backgroundColor, resizeTo: window });
+  await app.init({
+    width: CONFIG.world.width,
+    height: CONFIG.world.height,
+    background: CONFIG.world.backgroundColor,
+  });
 
   document.getElementById('pixi-container')!.appendChild(app.canvas);
 
