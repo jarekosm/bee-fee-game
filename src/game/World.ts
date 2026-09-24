@@ -1,6 +1,6 @@
 import { Application } from 'pixi.js';
 import { Keyboard } from '../input';
-import { Knight } from '../worldItems';
+import { Food, Knight } from '../worldItems';
 import { preload, setup } from './setup';
 
 export class World {
@@ -9,6 +9,7 @@ export class World {
 
   private constructor(private readonly app: Application) {
     this.knight = this.addKnight();
+    this.addFood();
   }
 
   static async create(): Promise<World> {
@@ -20,6 +21,7 @@ export class World {
   private addKnight(): Knight {
     const knight = new Knight();
     knight.view.position.set(this.app.screen.width / 2, this.app.screen.height / 2); // todo: ustawić prawidłową pozycję
+    knight.view.scale.set(5);
     // todo: ustawić odpowiednią skalę
     this.app.stage.addChild(knight.view);
 
@@ -38,5 +40,13 @@ export class World {
     });
 
     return knight;
+  }
+
+  private addFood(): Food {
+    const food = new Food();
+    food.view.scale.set(20);
+    this.app.stage.addChild(food.view);
+
+    return food; // todo: czy tutaj jest potrzebny return?
   }
 }

@@ -22,7 +22,7 @@ export class Knight {
 
   constructor() {
     const sheet = Assets.get<Texture>(CONFIG.assets.knight.alias);
-    sheet.source.scaleMode = 'nearest'; // todo: sprawdzić czy to jest potrzebne
+    sheet.source.scaleMode = 'nearest';
 
     this.frames = {
       idle: this.loadFramesForAnimation(sheet, SPRITE_ANIMATIONS.idle),
