@@ -1,7 +1,7 @@
 import { Application } from 'pixi.js';
 import { CONFIG } from '../config';
 import { Keyboard } from '../input';
-import { Food, Knight } from '../worldItems';
+import { createBackground, Food, Knight } from '../worldItems';
 import { preload, setup } from './setup';
 
 export class World {
@@ -11,6 +11,7 @@ export class World {
   private foodSpawnCooldown = 0;
 
   private constructor(private readonly app: Application) {
+    this.addBackground();
     this.knight = this.addKnight();
     this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
   }
@@ -19,6 +20,10 @@ export class World {
     const app = await setup();
     await preload();
     return new World(app);
+  }
+
+  private addBackground(): void {
+    this.app.stage.addChild(createBackground(this.app));
   }
 
   private addKnight(): Knight {

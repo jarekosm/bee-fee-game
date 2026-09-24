@@ -17,3 +17,10 @@ To są rzeczy, których nie zdążyłem ogarnąć lub stwierdziłem, że wymagaj
 
 - Można dodać drugiego gracza.
 - Ulepszenia po zebraniu przedmiotu specjalnego (np. szybszy bieg, czy większa postać lub zwolnienie czasu [szybkości spadania] przez 10s; dodanie drugiej postaci, która będzie poruszała się w odbiciu lustrzanym; powiększone jedzonko).
+- Podłoże, po którym będzie biegał bohater gry.
+
+# Assety
+
+- Postać: https://lionheart963.itch.io/4-directional-character
+- Jedzenie: https://henrysoftware.itch.io/pixel-food
+- Tło: cegła z Mini Dungeon/Castle Pixel Art Asset Pack, @nikllamadev, CC BY 4.0. https://nikllamadev.itch.io/dungeon-castle-pixel-art-asset-pack-free
