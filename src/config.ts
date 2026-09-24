@@ -1,6 +1,6 @@
 export const CONFIG = {
   world: {
-    backgroundColor: '#0d1017',
+    backgroundColor: '#ffd200',
   },
   assets: {
     food: { alias: 'food', src: 'food.png' },
