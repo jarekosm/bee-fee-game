@@ -15,4 +15,5 @@
 
 To są rzeczy, których nie zdążyłem ogarnąć lub stwierdziłem, że wymagają zbyt dużo czasu na ten etap.
 
-- ...na razie wszystko jednak robię na bieżąco.
+- Można dodać drugiego gracza.
+- Ulepszenia po zebraniu przedmiotu specjalnego (np. szybszy bieg, czy większa postać lub zwolnienie czasu [szybkości spadania] przez 10s; dodanie drugiej postaci, która będzie poruszała się w odbiciu lustrzanym; powiększone jedzonko).
