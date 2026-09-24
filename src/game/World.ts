@@ -7,10 +7,12 @@ import { preload, setup } from './setup';
 export class World {
   private readonly keyboardController = new Keyboard();
   private readonly knight: Knight;
+  private readonly foods: Food[] = [];
+  private foodSpawnCooldown = 0;
 
   private constructor(private readonly app: Application) {
     this.knight = this.addKnight();
-    this.addFood();
+    this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
   }
 
   static async create(): Promise<World> {
@@ -42,11 +44,48 @@ export class World {
     return knight;
   }
 
+  private updateFoods(deltaTime: number): void {
+    for (let i = this.foods.length - 1; i >= 0; i--) {
+      const food = this.foods[i];
+      food.view.position.y += CONFIG.world.foodStartSpeed * deltaTime;
+
+      if (food.view.position.y <= this.app.screen.height) {
+        continue;
+      }
+
+      this.app.stage.removeChild(food.view);
+      food.view.destroy();
+      this.foods.splice(i, 1);
+    }
+
+    if (this.foods.length >= CONFIG.world.foodStartAmount) {
+      this.foodSpawnCooldown = 0;
+      return;
+    }
+
+    this.foodSpawnCooldown -= deltaTime;
+
+    if (this.foodSpawnCooldown > 0) {
+      return;
+    }
+
+    const food = this.addFood();
+    this.foods.push(food);
+    this.foodSpawnCooldown =
+      (this.app.screen.height + food.view.height) /
+      CONFIG.world.foodStartAmount /
+      CONFIG.world.foodStartSpeed;
+  }
+
   private addFood(): Food {
     const food = new Food();
     food.setWidth(this.app.screen.width * CONFIG.world.foodWidth);
+    food.view.position.set(
+      Math.random() * (this.app.screen.width - food.view.width),
+      -food.view.height
+    );
     this.app.stage.addChild(food.view);
 
-    return food; // todo: czy tutaj jest potrzebny return?
+    return food;
   }
 }
