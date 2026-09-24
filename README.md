@@ -15,5 +15,4 @@
 
 To są rzeczy, których nie zdążyłem ogarnąć lub stwierdziłem, że wymagają zbyt dużo czasu na ten etap.
 
-- Skalowanie elementów gry w stosunku do rozmiaru świata zapisanego w configu (teraz jest tylko skalowanie ekranu).
-- Rycerz w sprite ma wolną przestrzeń po bokach. To sprawia, że skalowanie i łapanie przedmiotów nie jest dokładne, bo może nie dotknąć jedzenie, ale jego sprite dotyka. Trzeba będzie obciąć padding.
+- ...na razie wszystko jednak robię na bieżąco.

@@ -6,6 +6,14 @@ const SPRITE_CONFIG = Object.freeze({
   ROWS: 5,
 });
 
+// Klatka ma 84×84. Postać w używanych animacjach zajmuje x 18–67.
+const FRAME_CROP = Object.freeze({
+  x: 18,
+  y: 0,
+  width: 50,
+  height: 84,
+});
+
 const SPRITE_ANIMATIONS = Object.freeze({
   idle: { row: 0, fromColumn: 0, frameCount: 4 },
   right: { row: 2, fromColumn: 0, frameCount: 4 },
@@ -67,10 +75,10 @@ export class Knight {
       return new Texture({
         source: sheet.source,
         frame: new Rectangle(
-          column * frameWidth,
-          animation.row * frameHeight,
-          frameWidth,
-          frameHeight
+          column * frameWidth + FRAME_CROP.x,
+          animation.row * frameHeight + FRAME_CROP.y,
+          FRAME_CROP.width,
+          FRAME_CROP.height
         ),
       });
     });

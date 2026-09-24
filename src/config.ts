@@ -1,9 +1,9 @@
 export const CONFIG = {
   world: {
     width: 500,
-    height: 640,
+    height: 450,
     backgroundColor: '#ffd200',
-    knightWidth: 0.25, // szerokość rycerza w stosunku do szerokości świata
+    knightWidth: 0.15, // szerokość rycerza w stosunku do szerokości świata
     foodWidth: 0.1, // szerokość jedzonka w stosunku do szerokości świata
   },
   assets: {
