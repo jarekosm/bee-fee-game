@@ -27,21 +27,32 @@ export class World {
     knight.view.position.set(this.app.screen.width / 2, this.app.screen.height);
     this.app.stage.addChild(knight.view);
 
-    this.app.ticker.add(() => {
+    this.app.ticker.add(ticker => {
       const keyPressed = this.keyboardController.getKeyPressed();
+      const distance = this.app.screen.width * CONFIG.world.knightSpeed * (ticker.deltaMS / 1000);
 
       if (keyPressed === 'left') {
         this.knight.setMode('left');
-        return;
+        this.moveKnight(-distance);
       } else if (keyPressed === 'right') {
         this.knight.setMode('right');
-        return;
+        this.moveKnight(distance);
       } else {
         this.knight.setMode('idle');
       }
     });
 
     return knight;
+  }
+
+  private moveKnight(distance: number): void {
+    const halfWidth = this.knight.view.width / 2;
+    const nextX = this.knight.view.position.x + distance;
+
+    this.knight.view.position.x = Math.min(
+      this.app.screen.width - halfWidth,
+      Math.max(halfWidth, nextX)
+    );
   }
 
   private updateFoods(deltaTime: number): void {
