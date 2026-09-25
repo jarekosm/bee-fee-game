@@ -1,3 +1,4 @@
+export * from './Announcement';
 export * from './background';
 export * from './floor';
 export * from './Food';

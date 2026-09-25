@@ -2,6 +2,7 @@ import { Application, TilingSprite } from 'pixi.js';
 import { CONFIG } from '../config';
 import { Keyboard } from '../input';
 import {
+  Announcement,
   createBackground,
   createFloor,
   Food,
@@ -15,6 +16,7 @@ import { preload, setup } from './setup';
 
 export class World {
   private readonly keyboardController = new Keyboard();
+  private announcement: Announcement;
   private readonly floor: TilingSprite;
   private readonly healthIndicator: HealthIndicator;
   private readonly pointsIndicator: PointsIndicator;
@@ -35,14 +37,19 @@ export class World {
     this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
     this.healthIndicator = this.addHealthIndicator();
     this.pointsIndicator = this.addPointsIndicator();
+    this.announcement = this.addAnnouncement();
 
     this.gameState.addEventListener('change', () => {
       this.healthIndicator.setHealth(this.gameState.getHealth());
       this.pointsIndicator.setPoints(this.gameState.getPoints());
     });
+    this.gameState.addEventListener('start', () => {
+      this.announcement.removeText();
+    });
     this.gameState.addEventListener('gameOver', () => {
       this.app.ticker.stop();
       this.sounds.playGameOver();
+      this.announcement.setText('Koniec gry', 'Odśwież stronę, aby zacząć od nowa!');
     });
   }
 
@@ -91,6 +98,8 @@ export class World {
   }
 
   private moveKnight(distance: number): void {
+    this.gameState.start();
+
     const halfWidth = this.knight.view.width / 2;
     const nextX = this.knight.view.position.x + distance;
 
@@ -101,6 +110,10 @@ export class World {
   }
 
   private updateFoods(deltaTime: number): void {
+    if (!this.gameState.isStarted()) {
+      return;
+    }
+
     const knightBounds = this.knight.view.getBounds().rectangle;
 
     for (let i = this.foods.length - 1; i >= 0; i--) {
@@ -160,6 +173,19 @@ export class World {
     this.app.stage.addChildAt(food.view, this.app.stage.getChildIndex(this.floor));
 
     return food;
+  }
+
+  private addAnnouncement(): Announcement {
+    const announcement = new Announcement();
+
+    announcement.view.position.set(
+      this.app.screen.width / 2,
+      (this.app.screen.height - announcement.view.height) / 2 - this.app.screen.height * 0.08
+    );
+
+    this.app.stage.addChild(announcement.view);
+
+    return announcement;
   }
 
   private addHealthIndicator(): HealthIndicator {

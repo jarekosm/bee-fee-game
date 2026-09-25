@@ -1,6 +1,7 @@
 export class GameState extends EventTarget {
   private health = 0;
   private points = 0;
+  private started = false;
 
   constructor(private readonly initialHealth: number) {
     super();
@@ -13,6 +14,19 @@ export class GameState extends EventTarget {
 
   public getPoints(): number {
     return this.points;
+  }
+
+  public isStarted(): boolean {
+    return this.started;
+  }
+
+  public start(): void {
+    if (this.started) {
+      return;
+    }
+
+    this.started = true;
+    this.dispatchEvent(new Event('start'));
   }
 
   public addPoint(): void {
@@ -40,6 +54,7 @@ export class GameState extends EventTarget {
   public reset(): void {
     this.health = this.initialHealth;
     this.points = 0;
+    this.started = false;
     this.notify();
   }
 
