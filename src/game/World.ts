@@ -10,13 +10,13 @@ import {
   Knight,
   PointsIndicator,
 } from '../worldItems';
-import { GameState } from './GameState';
+import { EGameEvent, GameState } from './GameState';
 import { Sounds } from './Sounds';
 import { preload, setup } from './setup';
 
 export class World {
   private readonly keyboardController = new Keyboard();
-  private announcement: Announcement;
+  private readonly announcement: Announcement;
   private readonly floor: TilingSprite;
   private readonly healthIndicator: HealthIndicator;
   private readonly pointsIndicator: PointsIndicator;
@@ -40,14 +40,14 @@ export class World {
     this.pointsIndicator = this.addPointsIndicator();
     this.announcement = this.addAnnouncement();
 
-    this.gameState.addEventListener('change', () => {
+    this.gameState.addEventListener(EGameEvent.CHANGE, () => {
       this.healthIndicator.setHealth(this.gameState.getHealth());
       this.pointsIndicator.setPoints(this.gameState.getPoints());
     });
-    this.gameState.addEventListener('start', () => {
+    this.gameState.addEventListener(EGameEvent.START, () => {
       this.announcement.removeText();
     });
-    this.gameState.addEventListener('gameOver', () => {
+    this.gameState.addEventListener(EGameEvent.GAME_OVER, () => {
       const title = 'Koniec gry';
       const subtitle = 'Porusz bohaterem, aby zagrać od nowa!';
 

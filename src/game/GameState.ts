@@ -1,3 +1,9 @@
+export enum EGameEvent {
+  START = 'start',
+  GAME_OVER = 'gameOver',
+  CHANGE = 'change',
+}
+
 export class GameState extends EventTarget {
   private health = 0;
   private points = 0;
@@ -26,12 +32,12 @@ export class GameState extends EventTarget {
     }
 
     this.started = true;
-    this.dispatchEvent(new Event('start'));
+    this.notify(EGameEvent.START);
   }
 
   public addPoint(): void {
     this.points++;
-    this.notify();
+    this.notify(EGameEvent.CHANGE);
   }
 
   public removeHealth(): void {
@@ -40,10 +46,10 @@ export class GameState extends EventTarget {
     }
 
     this.health--;
-    this.notify();
+    this.notify(EGameEvent.CHANGE);
 
     if (this.health <= 0) {
-      this.dispatchEvent(new Event('gameOver'));
+      this.notify(EGameEvent.GAME_OVER);
     }
   }
 
@@ -55,10 +61,10 @@ export class GameState extends EventTarget {
     this.health = this.initialHealth;
     this.points = 0;
     this.started = false;
-    this.notify();
+    this.notify(EGameEvent.CHANGE);
   }
 
-  private notify(): void {
-    this.dispatchEvent(new Event('change'));
+  private notify(event: EGameEvent): void {
+    this.dispatchEvent(new Event(event));
   }
 }
