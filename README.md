@@ -11,14 +11,18 @@
 - Skonfigurowanie i dodanie testów (nie mam doświadczenia w testowaniu tego typu biblioteki, ale mam doświadczenie w innego rodzaju testach [np. jednostkowych, które też by się tutaj przydały]).
 - W przypadku rozrastającego się projektu lepiej przemyślałbym strukturę aplikacji.
 - Anchor obiektów - nie mam doświadczenia i nie byłem pewien jak to uspójnić, dlatego w tej chwili raczej nie jest spójne podejście między elementami.
+- W celu łatwiejszego sterowania interface'm dodałbym React (menu, komunikaty, zarządzanie stanami [np. ustawienie włączenia efektów dźwiękowych]) - nie chciałem komplikować tak prostego projektu, więc go nie dociągałem.
 
 # Rozwój projektu (gra)
 
 To są rzeczy, których nie zdążyłem ogarnąć lub stwierdziłem, że wymagają zbyt dużo czasu na ten etap.
 
-- Można dodać drugiego gracza.
+- Dodanie drugiego gracza.
 - Ulepszenia po zebraniu przedmiotu specjalnego (np. szybszy bieg, czy większa postać lub zwolnienie czasu [szybkości spadania] przez 10s; dodanie drugiej postaci, która będzie poruszała się w odbiciu lustrzanym; powiększone jedzonko).
 - Rozróżnić punktowo różne rodzaje jedzenia.
+- Dodanie poziomów.
+- Dodanie efektów dźwiękowych.
+- Prawdziwy reset gry (teraz trzeba odświeżyć przeglądarkę).
 
 # Assety
 

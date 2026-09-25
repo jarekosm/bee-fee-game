@@ -18,8 +18,8 @@ export class Food {
 
     const frameWidth = sheet.width / SPRITE_CONFIG.COLUMNS;
     const frameHeight = sheet.height / SPRITE_CONFIG.ROWS;
-    const x = randomFoodIndex % SPRITE_CONFIG.COLUMNS; // todo: sprawdzić wyliczenia
-    const y = Math.floor(randomFoodIndex / SPRITE_CONFIG.COLUMNS); // todo: sprawdzić wyliczenia
+    const x = randomFoodIndex % SPRITE_CONFIG.COLUMNS;
+    const y = Math.floor(randomFoodIndex / SPRITE_CONFIG.COLUMNS);
 
     const texture = new Texture({
       source: sheet.source,
