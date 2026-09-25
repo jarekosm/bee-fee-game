@@ -1,23 +1,23 @@
-import { Application } from 'pixi.js';
+import { Application, TilingSprite } from 'pixi.js';
 import { CONFIG } from '../config';
 import { Keyboard } from '../input';
-import { createBackground, FloorWithInformations, Food, Knight } from '../worldItems';
+import { createBackground, createFloor, Food, Knight } from '../worldItems';
 import { preload, setup } from './setup';
 
 export class World {
   private readonly keyboardController = new Keyboard();
-  private readonly floor: FloorWithInformations;
+  private readonly floor: TilingSprite;
   private readonly knight: Knight;
   private readonly foods: Food[] = [];
   private foodSpawnCooldown = 0;
 
   private get floorTop(): number {
-    return this.app.screen.height - this.floor.view.height;
+    return this.app.screen.height - this.floor.height;
   }
 
   private constructor(private readonly app: Application) {
     this.addBackground();
-    this.floor = this.addFloorWithInformations();
+    this.floor = this.addFloor();
     this.knight = this.addKnight();
     this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
   }
@@ -32,11 +32,11 @@ export class World {
     this.app.stage.addChild(createBackground(this.app));
   }
 
-  private addFloorWithInformations(): FloorWithInformations {
-    const floor = new FloorWithInformations(this.app);
-    floor.view.position.set(0, this.app.screen.height - floor.view.height);
+  private addFloor(): TilingSprite {
+    const floor = createFloor(this.app);
+    floor.position.set(0, this.app.screen.height - floor.height);
 
-    this.app.stage.addChild(floor.view);
+    this.app.stage.addChild(floor);
 
     return floor;
   }
@@ -117,7 +117,7 @@ export class World {
       -food.view.height
     );
 
-    this.app.stage.addChild(food.view);
+    this.app.stage.addChildAt(food.view, this.app.stage.getChildIndex(this.floor));
 
     return food;
   }

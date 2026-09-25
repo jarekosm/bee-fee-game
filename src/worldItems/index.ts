@@ -1,4 +1,4 @@
 export * from './background';
-export * from './FloorWithInformations';
+export * from './floor';
 export * from './Food';
 export * from './Knight';
