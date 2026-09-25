@@ -24,8 +24,8 @@ export class World {
   private readonly foods: Food[] = [];
   private readonly gameState = new GameState(10);
   private readonly sounds = new Sounds();
-  private foodSpawnCooldown = 0;
-  private canRestart = false;
+  private foodSpawnCooldown: number = 0;
+  private canRestart: boolean = false;
 
   private get floorTop(): number {
     return this.app.screen.height - this.floor.height;
@@ -43,6 +43,21 @@ export class World {
     this.gameState.addEventListener(EGameEvent.CHANGE, () => {
       this.healthIndicator.setHealth(this.gameState.getHealth());
       this.pointsIndicator.setPoints(this.gameState.getPoints());
+    });
+    this.gameState.addEventListener(EGameEvent.LEVEL_UP, () => {
+      const level = this.gameState.getLevel();
+      const foodUpgrade: 'speed' | 'amount' = Math.random() > 0.5 ? 'speed' : 'amount';
+
+      this.gameState.upgradeFood(foodUpgrade);
+
+      this.announcement.setText(
+        `Poziom ${level}!`,
+        `Zwiększono ${foodUpgrade === 'speed' ? 'prędkość' : 'ilość'} jedzenia.`
+      );
+
+      setTimeout(() => {
+        this.announcement.removeText();
+      }, 1e3);
     });
     this.gameState.addEventListener(EGameEvent.START, () => {
       this.announcement.removeText();
@@ -133,7 +148,7 @@ export class World {
 
     for (let i = this.foods.length - 1; i >= 0; i--) {
       const food = this.foods[i];
-      food.view.position.y += CONFIG.world.foodStartSpeed * deltaTime;
+      food.view.position.y += this.gameState.getFoodSpeed() * deltaTime;
 
       if (knightBounds.intersects(food.view.getBounds().rectangle)) {
         this.removeFood(i);
@@ -151,7 +166,7 @@ export class World {
       this.sounds.playHurt();
     }
 
-    if (this.foods.length >= CONFIG.world.foodStartAmount) {
+    if (this.foods.length >= this.gameState.getFoodAmount()) {
       this.foodSpawnCooldown = 0;
       return;
     }
@@ -166,8 +181,8 @@ export class World {
     this.foods.push(food);
     this.foodSpawnCooldown =
       (this.floorTop + food.view.height) /
-      CONFIG.world.foodStartAmount /
-      CONFIG.world.foodStartSpeed;
+      this.gameState.getFoodAmount() /
+      this.gameState.getFoodSpeed();
   }
 
   private clearFoods(): void {
