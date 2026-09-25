@@ -98,17 +98,23 @@ export class World {
   }
 
   private updateFoods(deltaTime: number): void {
+    const knightBounds = this.knight.view.getBounds().rectangle;
+
     for (let i = this.foods.length - 1; i >= 0; i--) {
       const food = this.foods[i];
       food.view.position.y += CONFIG.world.foodStartSpeed * deltaTime;
+
+      if (knightBounds.intersects(food.view.getBounds().rectangle)) {
+        this.removeFood(i);
+        this.gameState.addPoint();
+        continue;
+      }
 
       if (food.view.position.y <= this.floorTop) {
         continue;
       }
 
-      this.app.stage.removeChild(food.view);
-      food.view.destroy();
-      this.foods.splice(i, 1);
+      this.removeFood(i);
       this.gameState.removeHealth();
     }
 
@@ -129,6 +135,13 @@ export class World {
       (this.floorTop + food.view.height) /
       CONFIG.world.foodStartAmount /
       CONFIG.world.foodStartSpeed;
+  }
+
+  private removeFood(index: number): void {
+    const food = this.foods[index];
+    this.app.stage.removeChild(food.view);
+    food.view.destroy();
+    this.foods.splice(index, 1);
   }
 
   private addFood(): Food {
