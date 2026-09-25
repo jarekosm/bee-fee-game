@@ -1,14 +1,17 @@
 import { Application, TilingSprite } from 'pixi.js';
 import { CONFIG } from '../config';
 import { Keyboard } from '../input';
-import { createBackground, createFloor, Food, Knight } from '../worldItems';
+import { createBackground, createFloor, Food, HealthIndicator, Knight } from '../worldItems';
+import { GameState } from './GameState';
 import { preload, setup } from './setup';
 
 export class World {
   private readonly keyboardController = new Keyboard();
   private readonly floor: TilingSprite;
+  private readonly healthIndicator: HealthIndicator;
   private readonly knight: Knight;
   private readonly foods: Food[] = [];
+  private readonly gameState = new GameState(10);
   private foodSpawnCooldown = 0;
 
   private get floorTop(): number {
@@ -20,6 +23,13 @@ export class World {
     this.floor = this.addFloor();
     this.knight = this.addKnight();
     this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
+    this.healthIndicator = this.addHealthIndicator();
+    this.gameState.addEventListener('change', () => {
+      this.healthIndicator.setHealth(this.gameState.getHealth());
+    });
+    this.gameState.addEventListener('gameOver', () => {
+      this.app.ticker.stop();
+    });
   }
 
   static async create(): Promise<World> {
@@ -88,6 +98,7 @@ export class World {
       this.app.stage.removeChild(food.view);
       food.view.destroy();
       this.foods.splice(i, 1);
+      this.gameState.removeHealth();
     }
 
     if (this.foods.length >= CONFIG.world.foodStartAmount) {
@@ -120,5 +131,18 @@ export class World {
     this.app.stage.addChildAt(food.view, this.app.stage.getChildIndex(this.floor));
 
     return food;
+  }
+
+  private addHealthIndicator(): HealthIndicator {
+    const healthIndicator = new HealthIndicator(this.gameState.getHealth());
+    const margin = this.floor.height * 0.25;
+    const width = this.floor.width / 2 - margin * 2;
+    const height = this.floor.height - margin * 2;
+
+    healthIndicator.view.setSize(width, height);
+    healthIndicator.view.position.set(margin, this.floor.y + margin);
+    this.app.stage.addChild(healthIndicator.view);
+
+    return healthIndicator;
   }
 }
