@@ -1,17 +1,23 @@
 import { Application } from 'pixi.js';
 import { CONFIG } from '../config';
 import { Keyboard } from '../input';
-import { createBackground, Food, Knight } from '../worldItems';
+import { createBackground, FloorWithInformations, Food, Knight } from '../worldItems';
 import { preload, setup } from './setup';
 
 export class World {
   private readonly keyboardController = new Keyboard();
+  private readonly floor: FloorWithInformations;
   private readonly knight: Knight;
   private readonly foods: Food[] = [];
   private foodSpawnCooldown = 0;
 
+  private get floorTop(): number {
+    return this.app.screen.height - this.floor.view.height;
+  }
+
   private constructor(private readonly app: Application) {
     this.addBackground();
+    this.floor = this.addFloorWithInformations();
     this.knight = this.addKnight();
     this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
   }
@@ -26,10 +32,20 @@ export class World {
     this.app.stage.addChild(createBackground(this.app));
   }
 
+  private addFloorWithInformations(): FloorWithInformations {
+    const floor = new FloorWithInformations(this.app);
+    floor.view.position.set(0, this.app.screen.height - floor.view.height);
+
+    this.app.stage.addChild(floor.view);
+
+    return floor;
+  }
+
   private addKnight(): Knight {
     const knight = new Knight();
     knight.setWidth(this.app.screen.width * CONFIG.world.knightWidth);
-    knight.view.position.set(this.app.screen.width / 2, this.app.screen.height);
+    knight.view.position.set(this.app.screen.width / 2, this.floorTop);
+
     this.app.stage.addChild(knight.view);
 
     this.app.ticker.add(ticker => {
@@ -65,7 +81,7 @@ export class World {
       const food = this.foods[i];
       food.view.position.y += CONFIG.world.foodStartSpeed * deltaTime;
 
-      if (food.view.position.y <= this.app.screen.height) {
+      if (food.view.position.y <= this.floorTop) {
         continue;
       }
 
@@ -88,7 +104,7 @@ export class World {
     const food = this.addFood();
     this.foods.push(food);
     this.foodSpawnCooldown =
-      (this.app.screen.height + food.view.height) /
+      (this.floorTop + food.view.height) /
       CONFIG.world.foodStartAmount /
       CONFIG.world.foodStartSpeed;
   }
@@ -100,6 +116,7 @@ export class World {
       Math.random() * (this.app.screen.width - food.view.width),
       -food.view.height
     );
+
     this.app.stage.addChild(food.view);
 
     return food;
