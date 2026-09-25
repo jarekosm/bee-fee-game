@@ -20,9 +20,11 @@ To są rzeczy, których nie zdążyłem ogarnąć lub stwierdziłem, że wymagaj
 - Dodanie drugiego gracza.
 - Ulepszenia po zebraniu przedmiotu specjalnego (np. szybszy bieg, czy większa postać lub zwolnienie czasu [szybkości spadania] przez 10s; dodanie drugiej postaci, która będzie poruszała się w odbiciu lustrzanym; powiększone jedzonko).
 - Rozróżnić punktowo różne rodzaje jedzenia.
-- Dodanie poziomów.
 - Zarządzenie efektami dżwiękowymi - możliwość wyłączenia.
-- Prawdziwy reset gry (teraz trzeba odświeżyć przeglądarkę).
+- Wyregulowanie trudności (np. prędkość wzrastania szybkości spadającego jedzenia).
+- W tej chwili jedzenie odradza się w momencie zebrania. Warto wdrożyć jakiś losowy algorytm.
+- Dodanie nowocześniejszej grafiki.
+- Po zmianie spritów i dodaniu poruszania się tła można zrobić na tym silniku samochodzik omijający przeszkody (lub je zbierający - jak teraz).
 
 # Assety
 
