@@ -1,7 +1,14 @@
 import { Application, TilingSprite } from 'pixi.js';
 import { CONFIG } from '../config';
 import { Keyboard } from '../input';
-import { createBackground, createFloor, Food, HealthIndicator, Knight } from '../worldItems';
+import {
+  createBackground,
+  createFloor,
+  Food,
+  HealthIndicator,
+  Knight,
+  PointsIndicator,
+} from '../worldItems';
 import { GameState } from './GameState';
 import { preload, setup } from './setup';
 
@@ -9,6 +16,7 @@ export class World {
   private readonly keyboardController = new Keyboard();
   private readonly floor: TilingSprite;
   private readonly healthIndicator: HealthIndicator;
+  private readonly pointsIndicator: PointsIndicator;
   private readonly knight: Knight;
   private readonly foods: Food[] = [];
   private readonly gameState = new GameState(10);
@@ -24,8 +32,11 @@ export class World {
     this.knight = this.addKnight();
     this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
     this.healthIndicator = this.addHealthIndicator();
+    this.pointsIndicator = this.addPointsIndicator();
+
     this.gameState.addEventListener('change', () => {
       this.healthIndicator.setHealth(this.gameState.getHealth());
+      this.pointsIndicator.setPoints(this.gameState.getPoints());
     });
     this.gameState.addEventListener('gameOver', () => {
       this.app.ticker.stop();
@@ -144,5 +155,20 @@ export class World {
     this.app.stage.addChild(healthIndicator.view);
 
     return healthIndicator;
+  }
+
+  private addPointsIndicator(): PointsIndicator {
+    const pointsIndicator = new PointsIndicator();
+    const margin = this.floor.height * 0.25;
+    const height = this.floor.height - margin * 2;
+
+    pointsIndicator.setFontSize(height);
+    pointsIndicator.view.position.set(
+      this.floor.width - margin,
+      this.floor.y + this.floor.height / 2
+    );
+    this.app.stage.addChild(pointsIndicator.view);
+
+    return pointsIndicator;
   }
 }
