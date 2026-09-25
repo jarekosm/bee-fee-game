@@ -25,6 +25,7 @@ export class World {
   private readonly gameState = new GameState(10);
   private readonly sounds = new Sounds();
   private foodSpawnCooldown = 0;
+  private canRestart = false;
 
   private get floorTop(): number {
     return this.app.screen.height - this.floor.height;
@@ -47,9 +48,17 @@ export class World {
       this.announcement.removeText();
     });
     this.gameState.addEventListener('gameOver', () => {
-      this.app.ticker.stop();
+      const title = 'Koniec gry';
+      const subtitle = 'Porusz bohaterem, aby zagrać od nowa!';
+
+      this.canRestart = false;
       this.sounds.playGameOver();
-      this.announcement.setText('Koniec gry', 'Odśwież stronę, aby zacząć od nowa!');
+      this.announcement.setText(title, '');
+
+      setTimeout(() => {
+        this.canRestart = true;
+        this.announcement.setText(title, subtitle);
+      }, 1e3);
     });
   }
 
@@ -98,6 +107,12 @@ export class World {
   }
 
   private moveKnight(distance: number): void {
+    if (this.gameState.isGameOver() && this.canRestart) {
+      this.clearFoods();
+      this.foodSpawnCooldown = 0;
+      this.gameState.reset();
+    }
+
     this.gameState.start();
 
     const halfWidth = this.knight.view.width / 2;
@@ -110,7 +125,7 @@ export class World {
   }
 
   private updateFoods(deltaTime: number): void {
-    if (!this.gameState.isStarted()) {
+    if (!this.gameState.isStarted() || this.gameState.isGameOver()) {
       return;
     }
 
@@ -153,6 +168,12 @@ export class World {
       (this.floorTop + food.view.height) /
       CONFIG.world.foodStartAmount /
       CONFIG.world.foodStartSpeed;
+  }
+
+  private clearFoods(): void {
+    for (let i = this.foods.length - 1; i >= 0; i--) {
+      this.removeFood(i);
+    }
   }
 
   private removeFood(index: number): void {
