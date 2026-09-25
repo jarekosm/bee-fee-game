@@ -10,6 +10,7 @@ import {
   PointsIndicator,
 } from '../worldItems';
 import { GameState } from './GameState';
+import { Sounds } from './Sounds';
 import { preload, setup } from './setup';
 
 export class World {
@@ -20,6 +21,7 @@ export class World {
   private readonly knight: Knight;
   private readonly foods: Food[] = [];
   private readonly gameState = new GameState(10);
+  private readonly sounds = new Sounds();
   private foodSpawnCooldown = 0;
 
   private get floorTop(): number {
@@ -40,6 +42,7 @@ export class World {
     });
     this.gameState.addEventListener('gameOver', () => {
       this.app.ticker.stop();
+      this.sounds.playGameOver();
     });
   }
 
@@ -107,6 +110,7 @@ export class World {
       if (knightBounds.intersects(food.view.getBounds().rectangle)) {
         this.removeFood(i);
         this.gameState.addPoint();
+        this.sounds.playCollect();
         continue;
       }
 
@@ -116,6 +120,7 @@ export class World {
 
       this.removeFood(i);
       this.gameState.removeHealth();
+      this.sounds.playHurt();
     }
 
     if (this.foods.length >= CONFIG.world.foodStartAmount) {

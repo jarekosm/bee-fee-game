@@ -21,7 +21,7 @@ To są rzeczy, których nie zdążyłem ogarnąć lub stwierdziłem, że wymagaj
 - Ulepszenia po zebraniu przedmiotu specjalnego (np. szybszy bieg, czy większa postać lub zwolnienie czasu [szybkości spadania] przez 10s; dodanie drugiej postaci, która będzie poruszała się w odbiciu lustrzanym; powiększone jedzonko).
 - Rozróżnić punktowo różne rodzaje jedzenia.
 - Dodanie poziomów.
-- Dodanie efektów dźwiękowych.
+- Zarządzenie efektami dżwiękowymi - możliwość wyłączenia.
 - Prawdziwy reset gry (teraz trzeba odświeżyć przeglądarkę).
 
 # Assety
