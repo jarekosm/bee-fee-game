@@ -1,6 +1,6 @@
 # Pobranie projektu
 
-Repozytorium: https://github.com/jarekosm/bee-fee-game
+Repozytorium: [https://github.com/jarekosm/bee-fee-game](https://github.com/jarekosm/bee-fee-game)
 
 `git clone git@github.com:jarekosm/bee-fee-game.git`
 
@@ -33,13 +33,14 @@ Gra została stworzona w celach rekrutacji do firmy BEE-FEE i jej kod może być
 - Dodanie nowocześniejszej grafiki.
 - Po zmianie spritów i dodaniu poruszania się tła można zrobić na tym silniku samochodzik omijający przeszkody (lub je zbierający - jak teraz).
 - Przyśpieszenie na rządanie (np. po naciśnięciu przycisku do góry - podobnie jak przyśpieszenie klocka w Tetrisie).
+- Zapamiętanie rekordu punktowego lub tabela wyników z możliwością wpisania nicka.
 - I wiele innych, których nie wypisuję, bo w obecnych czasach Chaty SI są nieskończoną studnią pomysłów.
 
 # Assety
 
-- Postać: https://lionheart963.itch.io/4-directional-character
-- Jedzenie: https://henrysoftware.itch.io/pixel-food
-- Tło: cegła z Mini Dungeon/Castle Pixel Art Asset Pack, @nikllamadev, CC BY 4.0. https://nikllamadev.itch.io/dungeon-castle-pixel-art-asset-pack-free
+- Postać: [https://lionheart963.itch.io/4-directional-character](https://lionheart963.itch.io/4-directional-character)
+- Jedzenie: [https://henrysoftware.itch.io/pixel-food](https://henrysoftware.itch.io/pixel-food)
+- Tło: cegła z Mini Dungeon/Castle Pixel Art Asset Pack, @nikllamadev, CC BY 4.0. [https://nikllamadev.itch.io/dungeon-castle-pixel-art-asset-pack-free](https://nikllamadev.itch.io/dungeon-castle-pixel-art-asset-pack-free)
 
 # Uruchomienie projektu
 
