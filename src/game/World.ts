@@ -10,7 +10,7 @@ import {
   Knight,
   PointsIndicator,
 } from '../worldItems';
-import { EGameEvent, GameState } from './GameState';
+import { EGameEvent, GameState, TFoodUpgrade } from './GameState';
 import { Sounds } from './Sounds';
 import { preload, setup } from './setup';
 
@@ -35,18 +35,25 @@ export class World {
     this.addBackground();
     this.floor = this.addFloor();
     this.knight = this.addKnight();
-    this.app.ticker.add(ticker => this.updateFoods(ticker.deltaTime));
     this.healthIndicator = this.addHealthIndicator();
     this.pointsIndicator = this.addPointsIndicator();
     this.announcement = this.addAnnouncement();
+    this.listenToGameState();
 
+    this.app.ticker.add(ticker => {
+      this.updateKnight(ticker.deltaMS);
+      this.updateFoods(ticker.deltaTime);
+    });
+  }
+
+  private listenToGameState(): void {
     this.gameState.addEventListener(EGameEvent.CHANGE, () => {
       this.healthIndicator.setHealth(this.gameState.getHealth());
       this.pointsIndicator.setPoints(this.gameState.getPoints());
     });
     this.gameState.addEventListener(EGameEvent.LEVEL_UP, () => {
       const level = this.gameState.getLevel();
-      const foodUpgrade: 'speed' | 'amount' = Math.random() > 0.5 ? 'speed' : 'amount';
+      const foodUpgrade: TFoodUpgrade = Math.random() > 0.5 ? 'speed' : 'amount';
 
       this.gameState.upgradeFood(foodUpgrade);
 
@@ -103,22 +110,22 @@ export class World {
 
     this.app.stage.addChild(knight.view);
 
-    this.app.ticker.add(ticker => {
-      const keyPressed = this.keyboardController.getKeyPressed();
-      const distance = this.app.screen.width * CONFIG.world.knightSpeed * (ticker.deltaMS / 1000);
-
-      if (keyPressed === 'left') {
-        this.knight.setMode('left');
-        this.moveKnight(-distance);
-      } else if (keyPressed === 'right') {
-        this.knight.setMode('right');
-        this.moveKnight(distance);
-      } else {
-        this.knight.setMode('idle');
-      }
-    });
-
     return knight;
+  }
+
+  private updateKnight(deltaMS: number): void {
+    const keyPressed = this.keyboardController.getKeyPressed();
+    const distance = this.app.screen.width * CONFIG.world.knightSpeed * (deltaMS / 1000);
+
+    if (keyPressed === 'left') {
+      this.knight.setMode('left');
+      this.moveKnight(-distance);
+    } else if (keyPressed === 'right') {
+      this.knight.setMode('right');
+      this.moveKnight(distance);
+    } else {
+      this.knight.setMode('idle');
+    }
   }
 
   private moveKnight(distance: number): void {

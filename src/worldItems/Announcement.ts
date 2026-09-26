@@ -2,8 +2,8 @@ import { Container, Text } from 'pixi.js';
 
 export class Announcement {
   public readonly view = new Container();
-  private title: Text;
-  private subtitle: Text;
+  private readonly title: Text;
+  private readonly subtitle: Text;
 
   constructor() {
     this.title = new Text({

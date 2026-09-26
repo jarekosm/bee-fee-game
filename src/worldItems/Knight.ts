@@ -20,6 +20,12 @@ const SPRITE_ANIMATIONS = Object.freeze({
   left: { row: 2, fromColumn: 4, frameCount: 4 },
 });
 
+type TSpriteAnimation = {
+  row: number;
+  fromColumn: number;
+  frameCount: number;
+};
+
 export type TKnightMode = keyof typeof SPRITE_ANIMATIONS;
 
 export class Knight {
@@ -62,10 +68,7 @@ export class Knight {
     this.sprite.play();
   }
 
-  private loadFramesForAnimation(
-    sheet: Texture,
-    animation: { row: number; fromColumn: number; frameCount: number }
-  ): Texture[] {
+  private loadFramesForAnimation(sheet: Texture, animation: TSpriteAnimation): Texture[] {
     const frameWidth = sheet.width / SPRITE_CONFIG.COLUMNS;
     const frameHeight = sheet.height / SPRITE_CONFIG.ROWS;
 

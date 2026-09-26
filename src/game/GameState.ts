@@ -7,6 +7,8 @@ export enum EGameEvent {
   LEVEL_UP = 'levelUp',
 }
 
+export type TFoodUpgrade = 'speed' | 'amount';
+
 export class GameState extends EventTarget {
   private health = 0;
   private points = 0;
@@ -40,7 +42,7 @@ export class GameState extends EventTarget {
     return this.foodAmount;
   }
 
-  public upgradeFood(upgrade: 'speed' | 'amount'): void {
+  public upgradeFood(upgrade: TFoodUpgrade): void {
     if (upgrade === 'speed') {
       this.foodSpeed += 0.5;
       return;
