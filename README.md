@@ -1,8 +1,8 @@
 # Uwagi
 
 - To moja pierwsza gra w życiu. Także pierwsze spotkanie z biblioteką `PixiJS`. Wierzę, że wraz z doświadczeniem kod, struktura, itd. byłyby sporo lepsze. Przez brak doświadczenia w grach zgadywałem też trochę jak dobrze skalować sceny/obiekty i przeliczać na ekran. Są to rzeczy, które pewnie szybko bym zrozumiał działając na realnym projekcie.
-- Zgodnie z ustaleniami mailowymi, zrobiłem odstępstwo od specyfikacji używając najnowszej wersji `Node` LTS oraz najnowszej biblioteki `PixiJS`. Aktualna wersja node potrzebna do uruchomienia projektu zdefiniowana jest w pliku `package.json`. W tym samym pliku dostępna jest konfiguracja dla `volta`, która automatycznie uruchamia odpowiednią wersję `node` w terminalu (w przypadku niekorzystania z tego narzędzia, wersję `node` trzeba włączyć ręczenie)
-- W przeciwieństwie do dokumentacji (gdzie intalacja zależności jest wymagana przez `npm install`), zalecam instalowanie zależności przez `npm ci`, które weźmie pod uwagę dokładne wersje paczek zdefiniowane w pliku `package-lock.json`, z którymi tworzyłem i testowałem grę. Jednak przy tak krótkim czasie życia aplikacji z `npm install` też nie powinno być problemów.
+- Zgodnie z ustaleniami mailowymi, zrobiłem odstępstwo od specyfikacji używając najnowszej wersji `Node` LTS oraz najnowszej biblioteki `PixiJS`. Aktualna wersja node potrzebna do uruchomienia projektu zdefiniowana jest w pliku `package.json`. W tym samym pliku dostępna jest konfiguracja dla `volta`, która automatycznie uruchamia odpowiednią wersję `node` w terminalu (w przypadku niekorzystania z tego narzędzia, wersję `node` trzeba włączyć ręcznie).
+- W przeciwieństwie do dokumentacji (gdzie instalacja zależności jest wymagana przez `npm install`), zalecam instalowanie zależności przez `npm ci`, które weźmie pod uwagę dokładne wersje paczek zdefiniowane w pliku `package-lock.json`, z którymi tworzyłem i testowałem grę. Jednak przy tak krótkim czasie życia aplikacji z `npm install` też nie powinno być problemów.
 - Struktura projektu na GIT jest uproszczona. W zespole użyłbym branchy, robiłbym Pull Requesty i skupiał się bardziej na nazewnictwie commitów. Tutaj zakładam, że bardziej liczy się efekt końcowy, więc nie skupiałem się na działaniu na GIT.
 
 # Rozwój projektu (techniczny)
@@ -11,14 +11,15 @@
 - Skonfigurowanie i dodanie testów (nie mam doświadczenia w testowaniu tego typu biblioteki, ale mam doświadczenie w innego rodzaju testach [np. jednostkowych, które też by się tutaj przydały]).
 - W przypadku rozrastającego się projektu lepiej przemyślałbym strukturę aplikacji (na taką prostą grę wydaje mi się jednak wystarczająco).
 - Anchor obiektów - nie mam doświadczenia i nie byłem pewien jak to uspójnić, dlatego w tej chwili raczej nie jest spójne podejście między elementami.
-- W celu łatwiejszego sterowania interface'm dodałbym React (menu, komunikaty, zarządzanie stanami [np. ustawienie włączenia efektów dźwiękowych]) - nie chciałem komplikować tak prostego projektu, więc go nie dociągałem.
+- W celu łatwiejszego sterowania interfejsem dodałbym React (menu, komunikaty, zarządzanie stanami [np. ustawienie włączenia efektów dźwiękowych]) - nie chciałem komplikować tak prostego projektu, więc go nie dociągałem.
+- Katalog `worldItems` zawiera jednocześnie elementy gry jak i elementy interfejsu użytkownika. Przy większym projekcie warto byłoby to rozdzielić.
 
 # Rozwój projektu (gra)
 
 - Dodanie drugiego gracza.
 - Ulepszenia po zebraniu przedmiotu specjalnego (np. szybszy bieg, czy większa postać lub zwolnienie czasu [szybkości spadania] przez 10s; dodanie drugiej postaci, która będzie poruszała się w odbiciu lustrzanym; powiększone jedzonko).
 - Rozróżnić punktowo różne rodzaje jedzenia.
-- Zarządzenie efektami dżwiękowymi - możliwość wyłączenia.
+- Zarządzanie efektami dźwiękowymi - możliwość wyłączenia.
 - Wyregulowanie trudności (np. prędkość wzrastania szybkości spadającego jedzenia).
 - W tej chwili jedzenie odradza się w momencie zebrania. Warto wdrożyć jakiś losowy algorytm.
 - Dodanie nowocześniejszej grafiki.
@@ -32,7 +33,7 @@
 
 # Uruchomienie projektu
 
-Werjs `node` zdefiniowana jest w pliku `package.json`. W przypadku użycia `volta` wersja w terminalu ustawi się automatycznie. W przeciwnym przypadku należy wybrać odpowiednią wersję ręcznie.
+Wersja `node` zdefiniowana jest w pliku `package.json`. W przypadku użycia `volta` wersja w terminalu ustawi się automatycznie. W przeciwnym przypadku należy wybrać odpowiednią wersję ręcznie.
 
 ## Instalacja zależności
 
@@ -41,3 +42,7 @@ Preferowane jest użycie `npm ci` ze względu na to, że w projekcie umieściłe
 ## Start
 
 Polecenie `npm start` uruchamia serwer i otwiera grę w przeglądarce automatycznie. Gdyby jednak tak się nie stało, w terminalu wyświetlony jest adres, pod którym dostępna jest gra.
+
+## Sterowanie grą
+
+Do sterowania rycerzem służą klawisze `A` / strzałka w lewo oraz `D` / strzałka w prawo. Ruch w którąkolwiek stronę rozpoczyna grę, a po jej zakończeniu uruchamia ją od nowa. Jednoczesne wciśnięcie lewo i prawo zatrzymuje postać.
