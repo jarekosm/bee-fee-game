@@ -1,3 +1,11 @@
+# Pobranie projektu
+
+Repozytorium: https://github.com/jarekosm/bee-fee-game
+
+`git clone git@github.com:jarekosm/bee-fee-game.git`
+
+Gra została stworzona w celach rekrutacji do firmy BEE-FEE i jej kod może być używany jedynie w tym celu.
+
 # Uwagi
 
 - To moja pierwsza gra w życiu. Także pierwsze spotkanie z biblioteką `PixiJS`. Wierzę, że wraz z doświadczeniem kod, struktura, itd. byłyby sporo lepsze. Przez brak doświadczenia w grach zgadywałem też trochę jak dobrze skalować sceny/obiekty i przeliczać na ekran. Są to rzeczy, które pewnie szybko bym zrozumiał działając na realnym projekcie.
@@ -24,6 +32,8 @@
 - W tej chwili jedzenie odradza się w momencie zebrania. Warto wdrożyć jakiś losowy algorytm.
 - Dodanie nowocześniejszej grafiki.
 - Po zmianie spritów i dodaniu poruszania się tła można zrobić na tym silniku samochodzik omijający przeszkody (lub je zbierający - jak teraz).
+- Przyśpieszenie na rządanie (np. po naciśnięciu przycisku do góry - podobnie jak przyśpieszenie klocka w Tetrisie).
+- I wiele innych, których nie wypisuję, bo w obecnych czasach Chaty SI są nieskończoną studnią pomysłów.
 
 # Assety
 
